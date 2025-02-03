@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/01 12:31:15 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/03 12:40:11 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ char	*player_move(t_list *lst)
 	if (lst->keycode == RIGHT || lst->keycode == D)
 		return ("../textures/player_down.xpm");
 }
+
 void	assign_map(t_list *lst)
 {
 	lst->img_wall = mlx_xpm_file_to_image(lst->mlx, "../textures/wall.xpm", lst->img_longueur, lst->img_largeur);
-	lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "../textures/collectible.xpm" ,lst->img_longueur, lst->img_largeur);
+	lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "../textures/collectible.xpm", lst->img_longueur, lst->img_largeur);
 	lst->img_exit = mlx_xpm_file_to_image(lst->mlx, "../textures/img_exit.xpm", lst->img_longueur, lst->img_largeur);
 	lst->img_floor = mlx_xpm_file_to_image(lst->mlx, "../textures/floor.xpm", lst->img_longueur, lst->img_largeur);
 	lst->img_perso = mlx_xpm_file_to_image(lst->mlx, player_move(lst), lst->img_longueur, lst->img_largeur);
@@ -36,6 +37,7 @@ void	assign_map(t_list *lst)
 		exit(1);
 	}
 }
+
 void	create_map(t_list *lst)
 {
 	int	x;
@@ -76,26 +78,7 @@ int	key_press(t_list *lst)
 		move_right(lst);
 	if (lst->keycode == LEFT || lst->keycode == A)
 		move_left(lst);
-}
-
-void	move_up(t_list *lst)
-{
-	if (lst->map[lst->y - 1][lst->x] != '1')
-	{
-		if (lst->map[lst->y - 1][lst->x] == 'C')
-		{
-			lst->map[lst->y - 1][lst->x] = '0';
-			lst->nb_collectible--;
-		}
-		if (lst->map[lst->y - 1][lst->x] == 'E')
-		{
-			if (lst->nb_collectible == 0)
-			{
-				ft_printf("You win !");
-				exit(1);
-			}
-		}
-		lst->map[lst->y][lst->x] = '0';
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -107,8 +90,7 @@ int	main(int ac, char **av)
 	}
 	parsing();
 	init_lst();
-	
 }
 
-// lst.format_longueur ==== 45 (taille rendu)
-// lst.format_largeur ==== 45 (taille rendu)
+// lst.format_longueur ==== 32 (taille rendu)
+// lst.format_largeur ==== 32 (taille rendu)

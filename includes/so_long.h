@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/01/30 18:14:14 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:58:03 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,21 @@ typedef	struct s_list
 	char	**map;
 	void	*window;
 	void	*img_wall;
-	void	*img_floor;
 	void	*img_exit;
-	void	*img_perso;
 	void	*img_coin;
-	int		longueur_map;
-	int		largeur_map;
+	void	*img_perso;
+	void	*img_floor;
+	char	*path;
+	int		nb_collectibles;
 	int		img_longueur;
 	int		img_largeur;
+	int		longueur_map;
+	int		largeur_map;
 	int		keycode;
 	int		move;
-	int		file;
+	int		fd;
+	int		x;
+	int		y;
 }				t_list;
 
 
