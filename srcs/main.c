@@ -3,21 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/01/30 18:23:47 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/01 12:31:15 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	create_map(t_list *lst)
+char	*player_move(t_list *lst)
 {
-	lst->img_wall = mlx_xpm_file_to_image(lst->mlx, "../textures/img_wall.xpm", lst->img_longueur, lst->img_largeur);
-	lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "../textures/img_coin.xpm" ,lst->img_longueur, lst->img_largeur);
+	if (lst->keycode == UP || lst->keycode == W)
+		return ("../textures/player_up.xpm");
+	if (lst->keycode == DOWN || lst->keycode == S)
+		return ("../textures/player_down.xpm");
+	if (lst->keycode == LEFT || lst->keycode == A)
+		return ("../textures/player_left.xpm");
+	if (lst->keycode == RIGHT || lst->keycode == D)
+		return ("../textures/player_down.xpm");
+}
+void	assign_map(t_list *lst)
+{
+	lst->img_wall = mlx_xpm_file_to_image(lst->mlx, "../textures/wall.xpm", lst->img_longueur, lst->img_largeur);
+	lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "../textures/collectible.xpm" ,lst->img_longueur, lst->img_largeur);
 	lst->img_exit = mlx_xpm_file_to_image(lst->mlx, "../textures/img_exit.xpm", lst->img_longueur, lst->img_largeur);
-	lst->img_floor = mlx_xpm_file_to_image(lst->mlx, "../textures/img_floor.xpm", lst->img_longueur, lst->img_largeur);
+	lst->img_floor = mlx_xpm_file_to_image(lst->mlx, "../textures/floor.xpm", lst->img_longueur, lst->img_largeur);
 	lst->img_perso = mlx_xpm_file_to_image(lst->mlx, player_move(lst), lst->img_longueur, lst->img_largeur);
 	if (!lst->img_wall || !lst->img_coin || !lst->img_exit || !lst->img_floor || !lst->img_perso)
 	{
@@ -25,64 +36,6 @@ void	create_map(t_list *lst)
 		exit(1);
 	}
 }
-
-int	largeur_map_size(t_list *lst)
-{
-	char	*line;
-	int	count;
-	
-	count = 0;
-	line = get_next_line(lst->file);
-	while (line)
-	{
-		count++;
-		free(line);
-		line = get_next_line(lst->file);
-	}
-	free(line);
-	close(lst->file);
-	return (count);
-}
-
-void	size_map(t_list *lst)
-{
-	// int	file;
-	
-	// file = open("../map_ber/map01.ber", O_RDONLY);
-	lst->largeur_map = largeur_map_size(lst);
-	lst->longueur_map = ft_strlen();
-}
-
-void	check_corner(t_list *lst)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (lst->map[0][i] < lst->longueur_map && lst->map[0][i] == '1')
-		i++;
-	while (lst->map[j][0] < lst->largeur_map && lst->map[j][0] == 1)
-		j++;
-	if (i != lst->longueur_map || j != lst->largeur_map)
-	{
-		ft_putendl_fd("error : invalid map", 2);
-		exit(0);
-	}
-}
-
-char	*player_move(t_list *lst)
-{
-	if (lst->keycode == UP || lst->keycode == W)
-		return ("../textures/img_perso_up.xpm");
-	if (lst->keycode == DOWN || lst->keycode == S)
-		return ("../textures/img_perso_down.xpm");
-	if (lst->keycode == LEFT || lst->keycode == A)
-		return ("../textures/img_perso_left.xpm");
-	if (lst->keycode == RIGHT || lst->keycode == D)
-		return ("../textures/img_perso_left.xpm");
-}
-
 void	create_map(t_list *lst)
 {
 	int	x;
@@ -111,20 +64,49 @@ void	create_map(t_list *lst)
 	}
 }
 
-void	parsing(t_list *lst)
+int	key_press(t_list *lst)
 {
-	check_corner(lst);
-	fill_map();
-	draw_map();
+	if (lst->keycode == ESC)
+		exit(1);
+	if (lst->keycode == UP || lst->keycode == W)
+		move_up(lst);
+	if (lst->keycode == DOWN || lst->keycode == S)
+		move_down(lst);
+	if (lst->keycode == RIGHT || lst->keycode == D)
+		move_right(lst);
+	if (lst->keycode == LEFT || lst->keycode == A)
+		move_left(lst);
+}
+
+void	move_up(t_list *lst)
+{
+	if (lst->map[lst->y - 1][lst->x] != '1')
+	{
+		if (lst->map[lst->y - 1][lst->x] == 'C')
+		{
+			lst->map[lst->y - 1][lst->x] = '0';
+			lst->nb_collectible--;
+		}
+		if (lst->map[lst->y - 1][lst->x] == 'E')
+		{
+			if (lst->nb_collectible == 0)
+			{
+				ft_printf("You win !");
+				exit(1);
+			}
+		}
+		lst->map[lst->y][lst->x] = '0';
 }
 
 int	main(int ac, char **av)
 {
 	if (ac != 2)
+	{
 		ft_putendl("error : arguments", 2);
 		exit(1);
-	init_lst();
+	}
 	parsing();
+	init_lst();
 	
 }
 
