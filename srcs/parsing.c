@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/03 14:52:59 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:31:38 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,26 @@ void	check_file(t_list *lst)
 	}
 }
 
-void	make_map(t_list *lst)
+void	stock_map(t_list *lst)
 {
 	char	*line;
 	
-	lst->fd = open(lst->path, O_RDONLY);
-	if (lst->fd < 0)
+	lst->file = open(lst->path, O_RDONLY);
+	if (lst->file < 0)
 		return ;
-	line = get_next_line(lst->fd);
+	line = get_next_line(lst->file);
 	if (!line)
 		return ;
-	lst->longueur_map = ft_strlen(line - 1);
+	lst->stock = ft_strdup("");
 	while (line)
 	{
-		
+		lst->stock = ft_strjoin(lst->stock, line);
+		free(line);
+		line = get_next_line(lst->file);
 	}
+	lst->map = ft_split(lst->stock, '\n');
+	free(lst->stock);
+	close(lst->file);
 }
 
 void	check_corner(t_list *lst)
@@ -86,6 +91,34 @@ void	check_corner(t_list *lst)
 	{
 		ft_putendl_fd("error : invalid map", 2);
 		exit(1);
+	}
+}
+
+void	fill_mapinfo(t_list *lst)
+{
+	unsigned int	x;
+	unsigned int	y;
+
+	x = 0;
+	y = 0;
+	while (y < lst->largeur_map)
+	{
+		while (x < lst->longueur_map)
+		{
+			if (lst->map[y][x] == 'P')
+			{
+				lst->x = y;
+				lst->y = x;
+				lst->map_info.nb_player++;
+			}
+			if (lst->map[y][x] == 'C')
+				lst->map_info.nb_collectible++;
+			if (lst->map[y][x] == 'E')
+				lst->map_info.nb_exit++;
+			x++;
+		}
+		x = 0;
+		y++;
 	}
 }
 
@@ -115,10 +148,9 @@ unsigned int	size_map(t_list *lst)
 void	parsing(t_list *lst)
 {
 	check_file(lst);
+	stock_map(lst);
 	check_valide_map(lst);
 	check_corner(lst);
-	fill_map(lst);
 	size_map(lst);
-	stock_map(lst);
-	lst->mlx = mlx_init();
+	fill_mapinfo(lst);
 }
