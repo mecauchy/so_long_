@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:17:10 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/16 15:14:57 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:16:08 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/08 17:16:10 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	main(void)
-{	
-	void	*ptr;
-	void	*p;
+void	*ft_memchr(const void *s, int c, int n)
+{
+	unsigned char	*str;
+	int				i;
+	unsigned char	a;
 
-	ptr = 0;
-	p = "16";
-	printf("la fonction printf	: %p", ptr);
-	printf("%c", '\n');
-	ft_printf("mon printf		: %p", ptr);
-	return (0);
+	i = 0;
+	str = (unsigned char *)s;
+	a = c;
+	while (i < n)
+	{
+		if (str[i] == a)
+			return (str + i);
+		i++;
+	}
+	return (NULL);
 }

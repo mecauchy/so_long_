@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srcs.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:37:30 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:18:46 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/11 12:40:19 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(char c)
+size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	if (!str)
+	if (size > 0)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		while (src[i] && size > 1)
+		{
+			dest[i] = src[i];
+			i++;
+			size--;
+		}
+		dest[i] = '\0';
 	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
+	return (ft_strlen(src));
 }

@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/03 13:58:03 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:57:41 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@
 
 # define ESC 65307
 
+# define EXIT_CODE 17
+
 # include "../minilibx-linux/mlx.h"
+# include "../libft/libft/libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -40,7 +43,7 @@ typedef	struct s_img
 	void	*player_up;
 	void	*player_down;
 	void	*player_left;
-	void	*player_down;
+	void	*player_right;
 }				t_img;
 
 typedef	struct s_map
@@ -71,9 +74,33 @@ typedef	struct s_list
 	int		keycode;
 	int		move;
 	int		fd;
+	int		file;
+	char	*stock;
 	int		x;
 	int		y;
+	t_map	map_info;
+	t_img	player;
 }				t_list;
+
+void			update_window(t_list *lst);
+void			parsing(t_list *lst);
+unsigned int	size_map(t_list *lst);
+void			fill_mapinfo(t_list *lst);
+void			check_corner(t_list *lst);
+void			stock_map(t_list *lst);
+void			check_file(t_list *lst);
+void			check_valide_map(t_list *lst);
+void			move_right(t_list *lst);
+void			move_left(t_list *lst);
+void			move_down(t_list *lst);
+void			move_up(t_list *lst);
+void			init_game(t_list *lst);
+void			exit_game(t_list *lst, int value);
+int				exit_exit_exit_game(t_list *lst);
+int				key_press(t_list *lst);
+void			create_map(t_list *lst);
+void			assign_map(t_list *lst);
+char			*player_move(t_list *lst);
 
 
 

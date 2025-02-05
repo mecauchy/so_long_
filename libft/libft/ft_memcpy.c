@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srcs.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:37:30 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:16:20 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/11 12:32:31 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(char c)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	unsigned char	*v_dest;
+	unsigned char	*v_src;
+	int				i;
 
-int	ft_putstr(char *str)
-{
-	int	i;
-
+	if (!dest && !src)
+		return (NULL);
+	v_dest = (unsigned char *)dest;
+	v_src = (unsigned char *)src;
 	i = 0;
-	if (!str)
+	while (n)
 	{
-		write(1, "(null)", 6);
-		return (6);
-	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
+		v_dest[i] = v_src[i];
 		i++;
+		n--;
 	}
-	return (i);
+	return (dest);
 }

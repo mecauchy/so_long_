@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srcs.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:37:30 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:18:34 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/08 17:18:36 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(char c)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
+	int		i;
+	int		j;
+	char	*res;
 
 	i = 0;
-	if (!str)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
+	j = 0;
+	if (!s1)
+		return ((char *)s2);
+	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!res)
+		return (NULL);
+	while (s1[i] != '\0')
+		res[j++] = s1[i++];
+	i = 0;
+	while (s2[i] != '\0')
+		res[j++] = s2[i++];
+	res[j] = 0;
+	return (res);
 }

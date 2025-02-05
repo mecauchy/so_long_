@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srcs.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:37:30 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:19:36 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/08 17:19:38 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(char c)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
+	char	*str;
+	size_t	i;
 
 	i = 0;
+	if (!s || !len || start > (unsigned int)ft_strlen(s))
+		return (ft_strdup(""));
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
+		return (NULL);
+	while (i < len)
 	{
-		write(1, "(null)", 6);
-		return (6);
-	}
-	while (str[i])
-	{
-		write(1, &str[i], 1);
+		str[i] = s[start + i];
 		i++;
 	}
-	return (i);
+	str[i] = '\0';
+	return (str);
 }

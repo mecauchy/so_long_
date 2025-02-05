@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/04 19:31:38 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:12:35 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	check_file(t_list *lst)
 		ft_putendl_fd("Error : can't open file", 2);
 		exit(1);
 	}
-	if (ft_strncmp(ft_strrchr(file, '.'), ".ber", 4) != 0)
+	if (ft_strncmp(ft_strrchr(lst->path, '.'), ".ber", 4) != 0)
 	{
 		ft_putendl_fd("Error : invalid file", 2);
 		exit(1);
@@ -117,7 +117,7 @@ void	fill_mapinfo(t_list *lst)
 				lst->map_info.nb_exit++;
 			x++;
 		}
-		x = 0;
+		x = 0;lst->img_largeur;
 		y++;
 	}
 }
@@ -140,7 +140,7 @@ unsigned int	size_map(t_list *lst)
 		line = get_next_line(lst->fd);
 	}
 	free(line);
-	lst->largeur_map = largeur_map_size(lst);
+	lst->largeur_map = count;
 	close(lst->fd);
 	return (count);
 }

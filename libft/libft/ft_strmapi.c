@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srcs.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2024/11/20 11:37:30 by mcauchy-         ###   ########.fr       */
+/*   Created: 2024/11/08 17:19:04 by mcauchy-          #+#    #+#             */
+/*   Updated: 2024/11/08 17:19:05 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(char c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	write(1, &c, 1);
-	return (1);
-}
+	char			*str;
+	unsigned int	i;
 
-int	ft_putstr(char *str)
-{
-	int	i;
-
+	str = ft_strdup(s);
 	i = 0;
 	if (!str)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
+		return (NULL);
 	while (str[i])
 	{
-		write(1, &str[i], 1);
+		str[i] = (*f)(i, str[i]);
 		i++;
 	}
-	return (i);
+	return (str);
 }
