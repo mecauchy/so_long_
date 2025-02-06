@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:18:14 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+char	*ft_strchr(const char *s, int c)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	int		i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
 	i = 0;
-	while (lst->map[i])
+	while (s[i])
 	{
-		free(lst->map[i]);
+		if (s[i] == (char)c)
+			return ((char *)s + i);
 		i++;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	if ((char)c == '\0')
+		return ((char *)s + i);
+	else
+		return (NULL);
 }

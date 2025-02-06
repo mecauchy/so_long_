@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:52:47 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/05 12:15:17 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:45:56 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	move_down(t_list *lst)
 	{
 		if (lst->map[lst->y + 1][lst->x] == 'C')
 		{
-			lst->map[lst->y + 1][lst->x] == 'P';
+			lst->map[lst->y + 1][lst->x] = 'P';
 			lst->nb_collectibles--;
 		}
 		if (lst->map[lst->y + 1][lst->x] == 'E')
@@ -50,7 +50,7 @@ void	move_down(t_list *lst)
 		}
 		if (lst->map[lst->y + 1][lst->x] == '0')
 			lst->map[lst->y + 1][lst->x] = 'P';
-		lst->map[lst->x][lst->y] == '0';
+		lst->map[lst->x][lst->y] = '0';
 		lst->move++;
 		update_window(lst);
 	}

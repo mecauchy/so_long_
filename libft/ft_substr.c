@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:19:36 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	char	*str;
+	size_t	i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
 	i = 0;
-	while (lst->map[i])
+	if (!s || !len || start > (unsigned int)ft_strlen(s))
+		return (ft_strdup(""));
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len)
 	{
-		free(lst->map[i]);
+		str[i] = s[start + i];
 		i++;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	str[i] = '\0';
+	return (str);
 }

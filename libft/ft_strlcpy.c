@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:18:46 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+size_t	ft_strlcpy(char *dest, char const *src, size_t size)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	unsigned int	i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
 	i = 0;
-	while (lst->map[i])
+	if (size > 0)
 	{
-		free(lst->map[i]);
-		i++;
+		while (src[i] && size > 1)
+		{
+			dest[i] = src[i];
+			i++;
+			size--;
+		}
+		dest[i] = '\0';
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	return (ft_strlen(src));
 }

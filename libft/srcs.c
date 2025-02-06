@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   srcs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/16 14:18:03 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:05:45 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+int	ft_putchar(char c)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
+	write(1, &c, 1);
+	return (1);
 }
 
-void	free_map(t_list *lst)
+int	ft_putstr(char *str)
 {
 	int	i;
+
 	i = 0;
-	while (lst->map[i])
+	if (!str)
 	{
-		free(lst->map[i]);
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (str[i])
+	{
+		write(1, &str[i], 1);
 		i++;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	return (i);
 }

@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:17:56 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
-{
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
-
-void	free_map(t_list *lst)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
+
 	i = 0;
-	while (lst->map[i])
+	if (fd < 0)
+		return ;
+	while (s[i] != '\0')
 	{
-		free(lst->map[i]);
+		write(fd, &s[i], 1);
 		i++;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
 }

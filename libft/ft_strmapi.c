@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:19:04 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	char			*str;
+	unsigned int	i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
+	str = ft_strdup(s);
 	i = 0;
-	while (lst->map[i])
+	if (!str)
+		return (NULL);
+	while (str[i])
 	{
-		free(lst->map[i]);
+		str[i] = (*f)(i, str[i]);
 		i++;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	return (str);
 }

@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:16:14 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	unsigned char	*v_s1;
+	unsigned char	*v_s2;
+	unsigned int	i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
+	v_s1 = (unsigned char *)s1;
+	v_s2 = (unsigned char *)s2;
 	i = 0;
-	while (lst->map[i])
+	if (n == 0)
+		return (0);
+	while (v_s1[i] == v_s2[i] && n > 1)
 	{
-		free(lst->map[i]);
 		i++;
+		n--;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	return ((int)(v_s1[i] - v_s2[i]));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/05 12:57:41 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:16:20 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define EXIT_CODE 17
 
 # include "../minilibx-linux/mlx.h"
-# include "../libft/libft/libft.h"
+# include "./libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>

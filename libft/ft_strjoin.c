@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:18:34 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	int		i;
+	int		j;
+	char	*res;
 
-void	free_map(t_list *lst)
-{
-	int	i;
 	i = 0;
-	while (lst->map[i])
-	{
-		free(lst->map[i]);
-		i++;
-	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	j = 0;
+	if (!s1)
+		return ((char *)s2);
+	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!res)
+		return (NULL);
+	while (s1[i] != '\0')
+		res[j++] = s1[i++];
+	i = 0;
+	while (s2[i] != '\0')
+		res[j++] = s2[i++];
+	res[j] = 0;
+	return (res);
 }

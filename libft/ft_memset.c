@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:43:47 by mecauchy         ###   ########.fr       */
+/*   Created: 2024/11/08 17:16:33 by mcauchy-          #+#    #+#             */
+/*   Updated: 2025/02/06 11:04:57 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/libft.h"
 
-void	update_window(t_list *lst)
+void	*ft_memset(void	*b, int c, size_t n)
 {
-	mlx_clear_window(lst->mlx, lst->window);
-	create_map(lst);
-}
+	unsigned char	*ptr;
+	unsigned char	a;
+	size_t			i;
 
-void	free_map(t_list *lst)
-{
-	int	i;
 	i = 0;
-	while (lst->map[i])
+	ptr = (unsigned char *)b;
+	a = (unsigned char)c;
+	while (n)
 	{
-		free(lst->map[i]);
+		ptr[i] = a;
 		i++;
+		n--;
 	}
-	free(lst->map);
-}
-
-void	error_game(char *err)
-{
-	ft_putstr_fd(err, 2);
-	exit(1);
+	return (ptr);
 }
