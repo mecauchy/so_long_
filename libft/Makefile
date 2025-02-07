@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+         #
+#    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 17:24:44 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/06 11:11:49 by mecauchy         ###   ########.fr        #
+#    Updated: 2025/02/07 09:39:22 by mcauchy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS	=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			ft_strncmp.c ft_memmove.c ft_memchr.c ft_strchr.c ft_memset.c \
 			ft_bzero.c ft_strrchr.c ft_calloc.c ft_substr.c ft_toupper.c \
 			ft_tolower.c  ft_strdup.c ft_strnstr.c ft_strtrim.c\
-			ft_striteri.c ft_split.c ft_itoa.c \
+			ft_striteri.c ft_split.c ft_itoa.c ft_strncmp.c \
 			ft_strmapi.c  ft_strlcpy.c ft_strlcat.c \
 			ft_printf.c putnbrs.c search_other.c search.c srcs.c \
 			get_next_line.c get_next_line_utils.c \

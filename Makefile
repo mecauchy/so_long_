@@ -6,43 +6,47 @@
 #    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 14:00:29 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/05 15:37:59 by mcauchy-         ###   ########.fr        #
+#    Updated: 2025/02/07 10:11:21 by mcauchy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c move.c parsing.c utils.c
+ SRC_FILES		=	$(wildcard srcs/*.c)
+ 
+ LIBFT			=	libft/libft.a
+ 
+ MLX			=	minilibx-linux/libmlx_Linux.a 
+ 
+ INCLUDES		=	-I . \
+ 					-I /libft \
+					-I minilibx-linux/mlx \
+			
+OBJ_FILES		=	$(SRC_FILES:.c=.o)
 
-HEADER	=	so_long.h 
+CC				=	gcc -g3
 
-CC		=	cc 
+CFLAGS0			=	-Wall -Wextra -Werror
 
-CFLAGS	=	-Wextra -Wall -Werror -g3 
+NAME			=	so_long
 
-LDFLAGS	=	-Lminilibx-linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+all				:	$(NAME)
 
-MLX_DIR	=	./minilibx_linux --no-print-directory 
+$(NAME)			:	$(OBJ_FILES) $(LIBFT) $(MLX)
+					$(CC) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -lz $(CFLAGS) -o $(NAME)
+			
+%.o				:	%.c 
+					@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
+	
+$(LIBFT)		:
+					$(MAKE) -C libft/
 
-OBJS	=	$(SRCS.c=.o)
-
-PRINTF_OBJS	=	$(PRINTF_OBJS.c=.o)
-
-$(LIBFT):
-			@$(MAKE) -C $(LIBFT_DIR) 
-
-$(NAME)	:	$(OBJS) $(LIBFT)
-			@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME) 
-
-all		:	$(NAME)
+clean			:
+					rm -rf $(OBJ_FILES)
+					cd srcs/; rm -rf *.o
+					$(MAKE) fclean -C libft/
 		
-%.o		:	%.c
-			$(HEADER) @$(CC) $(CFLAGS) -Iincludes -Imlx -c $< -o $@ 
+fclean			:	clean
+					rm -rf $(NAME)
+		
+re				:	fclean all
 
-clean	:
-			@rm -f $(OBJ) $(GNL_OBJ) $(PRINTF_OBJ) @$(MAKE) clean -C $(LIBFT_DIR) 
-
-fclean	:	clean
-			@rm -f $(NAME) @$(MAKE) fclean -C $(LIBFT_DIR) 
-
-re		:	fclean all 
-
-.PHONY	:	all clean fclean re
+.PHONY			:	all clean fclean re

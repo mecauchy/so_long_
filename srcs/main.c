@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:15:10 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:23:17 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,24 @@ void	exit_game(t_list *lst, int value)
 	exit(0);
 }
 
+int	free_exit_game(t_list *lst)
+{
+	ft_printf("Sortie du jeu ...");
+	if (lst->img_exit)
+		mlx_destroy_image(lst->mlx, lst->img_exit);
+	if (lst->img_floor)
+		mlx_destroy_image(lst->mlx, lst->img_floor);
+	if (lst->img_perso)
+		mlx_destroy_image(lst->mlx, lst->img_perso);
+	if (lst->img_wall)
+		mlx_destroy_image(lst->mlx, lst->img_wall);
+	if (lst->window)
+		mlx_destroy_window(lst->mlx, lst->window);
+	mlx_destroy_display(lst->mlx);
+	free(lst->mlx);
+	exit(0);
+	return (0);
+}
 void	init_game(t_list *lst)
 {
 	lst->window = NULL;
@@ -114,7 +132,6 @@ void	init_game(t_list *lst)
 	lst->img_coin = NULL;
 	lst->img_perso = NULL;
 	lst->img_floor = NULL;
-	lst->path = NULL;
 	lst->img_longueur = 32;
 	lst->img_largeur = 32;
 	lst->longueur_map = 0;
@@ -139,14 +156,14 @@ int	main(int ac, char **av)
 	
 	if (ac != 2)
 	{
-		ft_putendl("error : arguments", 2);
+		ft_putendl_fd("error : arguments", 2);
 		exit(1);
 	}
 	lst.path = av[1];
 	lst.fd = open(lst.path, O_RDONLY);
 	if (lst.fd < 0)
 	{
-		ft_putendl("error : can't open file", 2);
+		ft_putendl_fd("error : can't open file", 2);
 		exit(1);
 	}
 	init_game(&lst);
@@ -154,12 +171,12 @@ int	main(int ac, char **av)
 	lst.mlx = mlx_init();
 	if (!lst.mlx)
 	{
-		ft_putendl("error : mlx_init", 2);
+		ft_putendl_fd("error : mlx_init", 2);
 		exit(1);
 	}
 	lst.window = mlx_new_window(lst.mlx, lst.largeur_map * 32, lst.longueur_map * 32, "so_long");
 	create_map(&lst);
-	mlx_hook(lst.window, EXIT_CODE, 0, exit_game, &lst);
+	mlx_hook(lst.window, EXIT_CODE, 0, free_exit_game, &lst);
 	mlx_key_hook(lst.window, key_press, &lst);
 	mlx_loop(lst.mlx);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:24:03 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 11:02:54 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/07 09:39:03 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(char const *s1, char const *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
