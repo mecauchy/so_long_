@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 10:22:24 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:35:11 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 # include "../minilibx-linux/mlx.h"
 # include "./libft.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
@@ -73,6 +75,7 @@ typedef	struct s_list
 	int		largeur_map;
 	int		keycode;
 	int		move;
+	// int		index;
 	int		fd;
 	int		file;
 	char	*stock;
@@ -84,7 +87,7 @@ typedef	struct s_list
 
 void			update_window(t_list *lst);
 void			parsing(t_list *lst);
-unsigned int	size_map(t_list *lst);
+int				size_map(t_list *lst);
 void			fill_mapinfo(t_list *lst);
 void			check_corner(t_list *lst);
 void			stock_map(t_list *lst);
@@ -96,8 +99,9 @@ void			move_down(t_list *lst);
 void			move_up(t_list *lst);
 void			init_game(t_list *lst);
 void			exit_game(t_list *lst, int value);
-int				key_press(t_list *lst);
-void			create_map(t_list *lst);
+int				key_press(int key, t_list *lst);
+int				create_map(t_list *lst);
+void			find_position(t_list *lst);
 void			assign_map(t_list *lst);
 char			*player_move(t_list *lst);
 int				free_exit_game(t_list *lst);

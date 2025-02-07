@@ -6,7 +6,7 @@
 #    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 14:00:29 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/07 10:11:21 by mcauchy-         ###   ########.fr        #
+#    Updated: 2025/02/07 10:41:35 by mcauchy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ NAME			=	so_long
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJ_FILES) $(LIBFT) $(MLX)
-					$(CC) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -lz $(CFLAGS) -o $(NAME)
+					$(CC) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -lz $(CFLAGS) -no-pie -o $(NAME)
 			
 %.o				:	%.c 
 					@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 

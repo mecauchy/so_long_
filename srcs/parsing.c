@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:14:26 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:41:40 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	stock_map(t_list *lst)
 	lst->map = ft_split(lst->stock, '\n');
 	if (!lst->map)
 	{
-		ft_putendl_fd("Error : invalid map", 2);
+		ft_putendl_fd("Error : invalid map 01", 2);
 		exit(1);
 	}
 	free(lst->stock);
@@ -110,8 +110,8 @@ void	fill_mapinfo(t_list *lst)
 		{
 			if (lst->map[y][x] == 'P')
 			{
-				lst->x = y;
-				lst->y = x;
+				lst->x = x;
+				lst->y = y;
 				lst->map_info.nb_player++;
 			}
 			if (lst->map[y][x] == 'C')
@@ -125,33 +125,91 @@ void	fill_mapinfo(t_list *lst)
 	}
 }
 
-unsigned int	size_map(t_list *lst)
+int	size_map(t_list *lst)
 {
 	char	*line;
 	int		count;
-
+	int		len;
+	int		i;
+	
 	count = 0;
+	i = 1;
 	lst->fd = open(lst->path, O_RDONLY);
 	if (lst->fd < 0)
-		return (0);
-	line = get_next_line(lst->fd);
-	lst->longueur_map = ft_strlen(line) - 1;
-	while (line)
 	{
-		count++;
-		if (lst->longueur_map != ft_strlen(line) - 1)
-		{
-			ft_putendl_fd("Error : invalid map", 2);
+		ft_putendl_fd("Error : cannot open file", 2);
+		exit(1);		
+	}
+	line = get_next_line(lst->fd);
+	while (line != NULL)
+	{
+		len = ft_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			len--;
+		if (count == 0)
+			lst->longueur_map = len;
+		else if (lst->longueur_map != len)
+		{		
+			ft_putendl_fd("Error : invalid map 02", 2);
+			free(line);
+			close(lst->fd);
 			exit(1);
 		}
+		printf("lst.longueur_map = %d\n len = %d, tour = %d\n", lst->longueur_map, len, count);
 		free(line);
 		line = get_next_line(lst->fd);
+		count++;
 	}
-	free(line);
+	// free(line);
 	lst->largeur_map = count;
 	close(lst->fd);
+	printf("here");
 	return (count);
 }
+
+// int	size_map(t_list *lst)
+// {
+// 	char	*line;
+// 	int		count;
+// 	int		len;
+	
+// 	count = 0;
+// 	len = 0;
+// 	lst->fd = open(lst->path, O_RDONLY);
+// 	if (lst->fd < 0)
+// 		return (0);
+// 	line = get_next_line(lst->fd);
+// 	if (!line)
+// 		return (0);
+// 	len = ft_strlen(line);
+// 	if (len > 0 && line[len - 1] == '\n')
+// 		lst->longueur_map = ft_strlen(line) - 1;
+// 	else
+// 		lst->longueur_map = ft_strlen(line);
+// 	while (line)
+// 	{
+// 		count++;
+// 		len = ft_strlen(line);
+// 		if (len > 0 && line[len - 1] == '\n')
+// 			len--;
+// 		if (lst->longueur_map != len)
+// 		{
+// 			printf("count = %d\n", count);
+// 			printf("line = %d\n", ft_strlen(line) - 1);			
+// 			ft_putendl_fd("Error : invalid map 02", 2);
+// 			exit(1);
+// 		}
+// 		printf("lst.longueur_map = %d\n", lst->longueur_map);
+// 		printf("len = %d, tour = %d\n", len, count);
+// 		free(line);
+// 		line = get_next_line(lst->fd);
+// 	}
+// 	free(line);
+// 	lst->largeur_map = count;
+// 	close(lst->fd);
+// 	printf("here");
+// 	return (count);
+// }
 
 void	parsing(t_list *lst)
 {

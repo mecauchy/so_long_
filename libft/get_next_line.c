@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:19:24 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 11:06:05 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:30:33 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*new_line(char *next_str)
 		free(next_str);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * ft_strlen(next_str) - i + 1);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(next_str) - i + 1));
 	if (!str)
 		return (free(next_str), NULL);
 	i++;

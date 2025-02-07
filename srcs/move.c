@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:52:47 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/06 11:45:56 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:23:02 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	move_up(t_list *lst)
 {
-	if (lst->map[lst->y - 1][lst->x] != '1')
+	find_position(lst);
+	if (lst->y > 0 && lst->map[lst->y - 1][lst->x] != '1')
 	{
 		if (lst->map[lst->y - 1][lst->x] == 'C')
 		{
@@ -36,7 +37,8 @@ void	move_up(t_list *lst)
 
 void	move_down(t_list *lst)
 {
-	if (lst->map[lst->y + 1][lst->x] != '1')
+	find_position(lst);
+	if (lst->y + 1 < lst->largeur_map && lst->map[lst->y + 1][lst->x] != '1')
 	{
 		if (lst->map[lst->y + 1][lst->x] == 'C')
 		{
@@ -51,6 +53,7 @@ void	move_down(t_list *lst)
 		if (lst->map[lst->y + 1][lst->x] == '0')
 			lst->map[lst->y + 1][lst->x] = 'P';
 		lst->map[lst->x][lst->y] = '0';
+		lst->y = lst->y + 1;
 		lst->move++;
 		update_window(lst);
 	}
@@ -58,7 +61,8 @@ void	move_down(t_list *lst)
 
 void	move_left(t_list *lst)
 {
-	if (lst->map[lst->y][lst->x - 1] != '1')
+	find_position(lst);
+	if (lst->x > 0 && lst->map[lst->y][lst->x - 1] != '1')
 	{
 		if (lst->map[lst->y][lst->x - 1] == 'C')
 		{
@@ -80,7 +84,8 @@ void	move_left(t_list *lst)
 
 void	move_right(t_list *lst)
 {
-	if (lst->map[lst->y][lst->x + 1] != '1')
+	find_position(lst);
+	if (lst->x + 1 < lst->longueur_map && lst->map[lst->y][lst->x + 1] != '1')
 	{
 		if (lst->map[lst->y][lst->x + 1] == 'C')
 		{
