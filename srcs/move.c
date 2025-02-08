@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:52:47 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 16:23:02 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:09:15 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	move_down(t_list *lst)
 		}
 		if (lst->map[lst->y + 1][lst->x] == '0')
 			lst->map[lst->y + 1][lst->x] = 'P';
-		lst->map[lst->x][lst->y] = '0';
+		lst->map[lst->y][lst->x] = '0';
 		lst->y = lst->y + 1;
 		lst->move++;
 		update_window(lst);

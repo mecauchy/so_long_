@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 15:35:11 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:18:59 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void			find_position(t_list *lst);
 void			assign_map(t_list *lst);
 char			*player_move(t_list *lst);
 int				free_exit_game(t_list *lst);
+void			set_player_position(t_list *lst, int key);
 
 #endif

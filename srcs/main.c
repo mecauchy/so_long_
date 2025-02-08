@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 16:34:37 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:28:02 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,21 @@ void	assign_map(t_list *lst)
 	lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "textures/collectible.xpm", &lst->img_longueur, &lst->img_largeur);
 	lst->img_exit = mlx_xpm_file_to_image(lst->mlx, "textures/exit.xpm", &lst->img_longueur, &lst->img_largeur);
 	lst->img_floor = mlx_xpm_file_to_image(lst->mlx, "textures/floor.xpm", &lst->img_longueur, &lst->img_largeur);
-	// if (lst->index == 0)
 	lst->img_perso = mlx_xpm_file_to_image(lst->mlx, "textures/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// else if (lst->index > 0)
-	// 	lst->img_perso = mlx_xpm_file_to_image(lst->mlx, player_move(lst), &lst->img_longueur, &lst->img_largeur);
 	if (!lst->img_wall || !lst->img_coin || !lst->img_exit || !lst->img_floor || !lst->img_perso)
 	{
 		ft_printf("Error when creating map");
 		exit(1);
 	}
-	// lst->img_wall = mlx_xpm_file_to_image(lst->mlx, "texture/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// lst->img_coin = mlx_xpm_file_to_image(lst->mlx, "texture/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// lst->img_exit = mlx_xpm_file_to_image(lst->mlx, "texture/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// lst->img_floor = mlx_xpm_file_to_image(lst->mlx, "texture/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// lst->img_perso = mlx_xpm_file_to_image(lst->mlx, "texture/player.xpm", &lst->img_longueur, &lst->img_largeur);
-	// if (!lst->img_perso)
-	// 	ft_printf("Error00\n");
-	// if (!lst->img_wall)
-	// 	ft_printf("Error01\n");
-	// if (!lst->img_exit)
-	// 	ft_printf("Error02\n");
-	// if (!lst->img_coin)
-	// 	ft_printf("Error03\n");
-	// if (!lst->img_floor)
-	// 	ft_printf("Error04\n");
+	lst->player.player_up = mlx_put_image_to_window(lst->mlx, "textures/player_up.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_down = mlx_put_image_to_window(lst->mlx, "textures/player_down.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_left = mlx_put_image_to_window(lst->mlx, "textures/player_left.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_right = mlx_put_image_to_window(lst->mlx, "textures/player_right.xpm", &lst->img_longueur, &lst->img_largeur);
+	if (!lst->player.player_up || !lst->player.player_down || !lst->player.player_left || !lst->player.player_right)
+	{
+		ft_printf("Error : Missing player");
+		exit(1);
+	}
 }
 
 int	create_map(t_list *lst)
@@ -106,9 +97,22 @@ int	create_map(t_list *lst)
 // 		move_right(lst);
 // 	return (0);
 // }
+
+void	set_player_position(t_list *lst, int key)
+{
+	if (key == UP || key == W)
+		lst->img_perso = lst->player.player_up;
+	if (key == DOWN || key == S)
+		lst->img_perso = lst->player.player_down;
+	if (key == LEFT || key == A)
+		lst->img_perso = lst->player.player_left;
+	if (key == RIGHT || key == D)
+		lst->img_perso = lst->player.player_right;
+}
+
 int	key_press(int key, t_list *lst)
 {
-	// find_position(lst);
+	set_player_position(lst, int key);
 	if (key == ESC)
 		exit(1);
 	if (key == UP || key == W)
@@ -156,6 +160,14 @@ int	free_exit_game(t_list *lst)
 		mlx_destroy_image(lst->mlx, lst->img_wall);
 	if (lst->window)
 		mlx_destroy_window(lst->mlx, lst->window);
+	if (lst->player.player_up)
+		mlx_destroy_image(lst->mlx, lst->player.player_up);
+	if (lst->player.player_down)
+		mlx_destroy_image(lst->mlx, lst->player.player_down);
+	if (lst->player.player_left)
+		mlx_destroy_image(lst->mlx, lst->player.player_left);
+	if (lst->player.player_right)
+		mlx_destroy_image(lst->mlx, lst->player.player_right);
 	mlx_destroy_display(lst->mlx);
 	free(lst->mlx);
 	exit(0);

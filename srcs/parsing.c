@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 15:41:40 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:11:15 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	fill_mapinfo(t_list *lst)
 				lst->map_info.nb_exit++;
 			x++;
 		}
-		x = 0;lst->img_largeur;
+		x = 0;
 		y++;
 	}
 }
