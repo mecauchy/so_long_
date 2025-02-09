@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
+#    By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 14:00:29 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/07 10:41:35 by mcauchy-         ###   ########.fr        #
+#    Updated: 2025/02/09 16:21:56 by mecauchy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
- SRC_FILES		=	$(wildcard srcs/*.c)
+ SRC_FILES		=	main.c move.c parsing.c utils.c
  
  LIBFT			=	libft/libft.a
  
@@ -28,11 +28,44 @@ CFLAGS0			=	-Wall -Wextra -Werror
 
 NAME			=	so_long
 
+RED				=	\033[1;31m
+
+YELLOW			=	\033[1;33m
+
+RESET			=	\033[0m
+
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJ_FILES) $(LIBFT) $(MLX)
+					@clear
+					@echo "Linking $(NAME) ..."	
 					$(CC) $(OBJ_FILES) $(LIBFT) $(MLX) -lXext -lX11 -lm -lz $(CFLAGS) -no-pie -o $(NAME)
-			
+					echo "Done."
+					@clear
+					@echo "Compilation done."
+					@echo ""
+					@echo "........                                                                                   ........"
+					@echo ""
+					@echo "$(YELLOW)     =######=    -*######*:                    :##-        -######*.    =######+     =######+    $(RESET)"
+					@echo "$(YELLOW)    .+++   +.    ===   :=+:                    -=+.        +=-  -=+.    ===  -=+    .+=-.    -:    $(RESET)"
+					@echo "$(YELLOW)    .++          ===   :=+:                    -=+.        +=-  -=+.    ===  -=+    .+=-.    -:    $(RESET)"
+					@echo "$(YELLOW)    .+++++++.    ===   :=+:                    -=+.        +=-  -=+.    ===  -=+    .+= .    $(RESET)"
+					@echo "$(RED)         +++.    ===   :=+:                    -=+.        +=-  -=+.    ===  -=+    .+=   .:--:   $(RESET)"
+					@echo "$(RED)         +++.    ===   :=+:                    -=+.        +=-  -=+.    ===  -=+    .+=   .:--:   $(RESET)"
+					@echo "$(RED)    ::::::::     :::::::::    .:::::::::::     ::::::.     :::::::.    .::.  :::     .::::::::.    $(RESET)"
+					@echo ""
+					@echo ""
+					@echo "$(RED)........                                                                                   ........$(RESET)"
+					@echo ""				
+					@echo ""				
+					@echo "$(YELLOW)                    # ********************************************************* #$(RESET)"
+					@echo "$(YELLOW)                    #                                                           #$(RESET)"
+					@echo "$(YELLOW)                    #----------------------- by mcauchy- ---------------------- #$(RESET)"
+					@echo "$(YELLOW)                    #                                                           #$(RESET)"
+					@echo "$(YELLOW)                    # ********************************************************* #$(RESET)"
+					@echo ""
+					@echo "$(YELLOW)........                                                                                   ........$(RESET)"
+					
 %.o				:	%.c 
 					@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
 	

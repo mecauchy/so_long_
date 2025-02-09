@@ -6,7 +6,7 @@
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/08 21:28:02 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:59:17 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	assign_map(t_list *lst)
 		ft_printf("Error when creating map");
 		exit(1);
 	}
-	lst->player.player_up = mlx_put_image_to_window(lst->mlx, "textures/player_up.xpm", &lst->img_longueur, &lst->img_largeur);
-	lst->player.player_down = mlx_put_image_to_window(lst->mlx, "textures/player_down.xpm", &lst->img_longueur, &lst->img_largeur);
-	lst->player.player_left = mlx_put_image_to_window(lst->mlx, "textures/player_left.xpm", &lst->img_longueur, &lst->img_largeur);
-	lst->player.player_right = mlx_put_image_to_window(lst->mlx, "textures/player_right.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_up = mlx_xpm_file_to_image(lst->mlx, "textures/player_up.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_down = mlx_xpm_file_to_image(lst->mlx, "textures/player_down.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_left = mlx_xpm_file_to_image(lst->mlx, "textures/player_left.xpm", &lst->img_longueur, &lst->img_largeur);
+	lst->player.player_right = mlx_xpm_file_to_image(lst->mlx, "textures/player_right.xpm", &lst->img_longueur, &lst->img_largeur);
 	if (!lst->player.player_up || !lst->player.player_down || !lst->player.player_left || !lst->player.player_right)
 	{
 		ft_printf("Error : Missing player");
@@ -112,7 +112,7 @@ void	set_player_position(t_list *lst, int key)
 
 int	key_press(int key, t_list *lst)
 {
-	set_player_position(lst, int key);
+	set_player_position(lst, key);
 	if (key == ESC)
 		exit(1);
 	if (key == UP || key == W)
