@@ -6,7 +6,7 @@
 /*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/08 21:18:59 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:40:32 by mecauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef	struct s_list
 	int		largeur_map;
 	int		keycode;
 	int		move;
-	// int		index;
 	int		fd;
 	int		file;
 	char	*stock;
