@@ -6,17 +6,17 @@
 #    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 14:00:29 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/10 11:05:54 by mcauchy-         ###   ########.fr        #
+#    Updated: 2025/02/10 14:43:52 by mcauchy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
- SRC_FILES		=	./srcs/so_long.c ./srcs/move.c ./srcs/parsing.c ./srcs/utils.c
+SRC_FILES		=	./srcs/so_long.c ./srcs/move.c ./srcs/parsing.c ./srcs/utils.c ./srcs/bonus.c
  
- LIBFT			=	libft/libft.a
+LIBFT			=	libft/libft.a
  
- MLX			=	minilibx-linux/libmlx_Linux.a 
+MLX				=	minilibx-linux/libmlx_Linux.a 
  
- INCLUDES		=	-I . \
+INCLUDES		=	-I . \
  					-I /libft \
 					-I minilibx-linux/mlx \
 			

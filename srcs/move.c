@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:52:47 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/10 11:13:36 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:14:23 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	move_up(t_list *lst)
 		}
 		if (lst->map[lst->y - 1][lst->x] == 'E')
 		{
+			printf("\ncoucouhaut\n");
 			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
@@ -40,6 +41,7 @@ void	move_down(t_list *lst)
 	find_position(lst);
 	if (lst->y + 1 < lst->largeur_map && lst->map[lst->y + 1][lst->x] != '1')
 	{
+		printf("\ncoucou1\n");
 		if (lst->map[lst->y + 1][lst->x] == 'C')
 		{
 			lst->map[lst->y + 1][lst->x] = 'P';
@@ -47,13 +49,14 @@ void	move_down(t_list *lst)
 		}
 		if (lst->map[lst->y + 1][lst->x] == 'E')
 		{
+			printf("\ncoucou\n");
 			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
 		if (lst->map[lst->y + 1][lst->x] == '0')
 			lst->map[lst->y + 1][lst->x] = 'P';
 		lst->map[lst->y][lst->x] = '0';
-		lst->y = lst->y + 1;
+		// lst->y = lst->y + 1;
 		lst->move++;
 		update_window(lst);
 	}

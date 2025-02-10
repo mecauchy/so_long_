@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:29:15 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/07 16:34:09 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:51:20 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void	update_window(t_list *lst)
 	create_map(lst);
 }
 
-void	free_map(t_list *lst)
-{
-	int	i;
-	i = 0;
-	while (lst->map[i])
-	{
-		free(lst->map[i]);
-		i++;
-	}
-	free(lst->map);
-}
+// void	free_map(t_list *lst)
+// {
+// 	int	i;
+// 	i = 0;
+// 	while (lst->map[i])
+// 	{
+// 		free(lst->map[i]);
+// 		i++;
+// 	}
+// 	free(lst->map);
+// }
 
 void	error_game(char *err)
 {

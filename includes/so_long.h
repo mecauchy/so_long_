@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/10 11:12:57 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:43:03 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define D 100
 
 # define ESC 65307
+# define SPACE 32
 
 # define EXIT_CODE 17
 
@@ -62,13 +63,16 @@ typedef	struct s_list
 	void	*mlx;
 	char	**map;
 	void	*window;
+	void	*presentation_win;
 	void	*img_wall;
 	void	*img_exit;
 	void	*img_coin;
 	void	*img_perso;
 	void	*img_floor;
+	void	*presentation_background;
+	void	*start_button;
+	void	*presentation_window;
 	char	*path;
-	// int		nb_collectibles;
 	int		img_longueur;
 	int		img_largeur;
 	int		longueur_map;
@@ -101,9 +105,13 @@ void			exit_game(t_list *lst, int value);
 int				key_press(int key, t_list *lst);
 int				create_map(t_list *lst);
 void			find_position(t_list *lst);
+void			free_map(char **map);
 void			assign_map(t_list *lst);
 char			*player_move(t_list *lst);
 int				free_exit_game(t_list *lst);
 void			set_player_position(t_list *lst, int key);
+void			launch_presentation(t_list *lst);
+int				presentation_keypress(int key, t_list *lst);
+void			load_presentation_images(t_list *lst);
 
 #endif

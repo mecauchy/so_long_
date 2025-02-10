@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/10 11:06:40 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:03:55 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	stock_map(t_list *lst)
 	if (!line)
 		return ;
 	lst->stock = ft_strdup("");
+	if (!lst->stock)
+		free(line);
 	while (line)
 	{
 		lst->stock = ft_strjoin(lst->stock, line);
@@ -73,8 +75,12 @@ void	stock_map(t_list *lst)
 	if (!lst->map)
 	{
 		ft_putendl_fd("Error : invalid map 01", 2);
+		free(line);
+		free(lst->stock);
+		close(lst->file);
 		exit(1);
 	}
+	free(line);
 	free(lst->stock);
 	close(lst->file);
 }
@@ -153,15 +159,13 @@ int	size_map(t_list *lst)
 			close(lst->fd);
 			exit(1);
 		}
-		printf("lst.longueur_map = %d\n len = %d, tour = %d\n", lst->longueur_map, len, count);
 		free(line);
 		line = get_next_line(lst->fd);
 		count++;
 	}
-	// free(line);
+	free(line);
 	lst->largeur_map = count;
 	close(lst->fd);
-	printf("here");
 	return (count);
 }
 

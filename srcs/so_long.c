@@ -6,7 +6,7 @@
 /*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/10 11:13:19 by mcauchy-         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:20:58 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	assign_map(t_list *lst)
 	if (!lst->img_wall || !lst->img_coin || !lst->img_exit || !lst->img_floor || !lst->img_perso)
 	{
 		ft_printf("Error when creating map");
-		exit(1);
+		free_exit_game(lst);
 	}
 	lst->player.player_up = mlx_xpm_file_to_image(lst->mlx, "textures/player_up.xpm", &lst->img_longueur, &lst->img_largeur);
 	lst->player.player_down = mlx_xpm_file_to_image(lst->mlx, "textures/player_down.xpm", &lst->img_longueur, &lst->img_largeur);
@@ -44,7 +44,7 @@ void	assign_map(t_list *lst)
 	if (!lst->player.player_up || !lst->player.player_down || !lst->player.player_left || !lst->player.player_right)
 	{
 		ft_printf("Error : Missing player");
-		exit(1);
+		free_exit_game(lst);
 	}
 }
 
@@ -52,6 +52,7 @@ int	create_map(t_list *lst)
 {
 	int	x;
 	int	y;
+	char	*step;
 
 	x = 0;
 	y = 0;
@@ -70,16 +71,16 @@ int	create_map(t_list *lst)
 				mlx_put_image_to_window(lst->mlx, lst->window, lst->img_coin, x * 32, y * 32);
 			if (lst->map[y][x] == 'E')
 				mlx_put_image_to_window(lst->mlx, lst->window, lst->img_exit, x * 32, y * 32);
-			// if (lst->map[y][x] == 'P' && y == lst->y && x == lst->x)
 			if (y == lst->y && x == lst->x)
-			// if (lst->map[y][x] == 'P')
 				mlx_put_image_to_window(lst->mlx, lst->window, lst->img_perso, x * 32, y * 32);
 			x++;
 		}
 		y++;
 	}
+	step = ft_strjoin("steps : ", ft_itoa(lst->move));
 	mlx_string_put(lst->mlx, lst->window, 10, 10, 0xFFFFFF, "Press ESC to quit");
-	mlx_string_put(lst->mlx, lst->window, 10, 30, 0xFF0099, ft_strjoin("steps : ", ft_itoa(lst->move)));
+	mlx_string_put(lst->mlx, lst->window, 10, 30, 0xFF0099, step);
+	free(step);
 	return (1);
 }
 
@@ -127,12 +128,23 @@ int	key_press(int key, t_list *lst)
 	return (0);
 }
 
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while(map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
 void	exit_game(t_list *lst, int value)
 {
 	if (value)
 		ft_printf("you won the game after %d moves, congratulations!", lst->move);
-	// else
-	// 	ft_printf("Sortie du jeu ...");
 	if (lst->img_exit)
 		mlx_destroy_image(lst->mlx, lst->img_exit);
 	if (lst->img_floor)
@@ -141,9 +153,20 @@ void	exit_game(t_list *lst, int value)
 		mlx_destroy_image(lst->mlx, lst->img_perso);
 	if (lst->img_wall)
 		mlx_destroy_image(lst->mlx, lst->img_wall);
+	if (lst->img_coin)
+		mlx_destroy_image(lst->mlx, lst->img_coin);
+	// if (lst->player.player_up)
+	// 	mlx_destroy_image(lst->mlx, lst->player.player_up);
+	// if (lst->player.player_down)
+	// 	mlx_destroy_image(lst->mlx, lst->player.player_down);
+	// if (lst->player.player_left)
+	// 	mlx_destroy_image(lst->mlx, lst->player.player_left);
+	// if (lst->player.player_right)
+	// 	mlx_destroy_image(lst->mlx, lst->player.player_right);
 	if (lst->window)
 		mlx_destroy_window(lst->mlx, lst->window);
-	// mlx_destroy_display(lst->mlx);
+	mlx_destroy_display(lst->mlx);
+	free_map(lst->map);
 	free(lst->mlx);
 	exit(0);
 }
@@ -159,8 +182,8 @@ int	free_exit_game(t_list *lst)
 		mlx_destroy_image(lst->mlx, lst->img_perso);
 	if (lst->img_wall)
 		mlx_destroy_image(lst->mlx, lst->img_wall);
-	if (lst->window)
-		mlx_destroy_window(lst->mlx, lst->window);
+	if (lst->img_coin)
+		mlx_destroy_image(lst->mlx, lst->img_coin);
 	if (lst->player.player_up)
 		mlx_destroy_image(lst->mlx, lst->player.player_up);
 	if (lst->player.player_down)
@@ -169,7 +192,10 @@ int	free_exit_game(t_list *lst)
 		mlx_destroy_image(lst->mlx, lst->player.player_left);
 	if (lst->player.player_right)
 		mlx_destroy_image(lst->mlx, lst->player.player_right);
-	// mlx_destroy_display(lst->mlx);
+	if (lst->window)
+		mlx_destroy_window(lst->mlx, lst->window);
+	mlx_destroy_display(lst->mlx);
+	free_map(lst->map);
 	free(lst->mlx);
 	exit(0);
 	return (0);
@@ -201,6 +227,39 @@ void	init_game(t_list *lst)
 	lst->player.player_right = NULL;
 }
 
+int	presentation_keypress(int key, t_list *lst)
+{
+	if (key == SPACE)
+	{
+		mlx_destroy_window(lst->mlx, lst->presentation_win);
+		lst->window = mlx_new_window(lst->mlx, lst->longueur_map * 32, lst->largeur_map * 32, "so_long");
+		assign_map(lst);
+		find_position(lst);
+		create_map(lst);
+		mlx_hook(lst->window, KeyPress, KeyPressMask, key_press, lst);
+		mlx_hook(lst->window, EXIT_CODE, 0, free_exit_game, lst);
+		mlx_loop(lst->mlx);
+	}
+	return (0);
+}
+
+void	launch_presentation(t_list *lst)
+{
+	lst->presentation_win = mlx_new_window(lst->mlx, 800, 600, "-----GAME 01-----");
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->presentation_background, 0, 0);
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->start_button, 50, 50);
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->presentation_background, 100, 100);	
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->start_button, 150, 150);
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->presentation_background, 200, 200);	
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->start_button, 760, 0);
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->presentation_background, 710, 50);	
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->start_button, 660, 100);
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->presentation_background, 610, 150);	
+	mlx_put_image_to_window(lst->mlx, lst->presentation_win, lst->start_button, 560, 200);
+	mlx_string_put(lst->mlx, lst->presentation_win, 250, 300, 0xFFFFFF, "---------- PRESS ENTER TO START THE GAME ----------");
+	mlx_hook(lst->presentation_win, KeyPress, KeyPressMask, presentation_keypress, lst);
+}
+
 int	main(int ac, char **av)
 {
 	t_list	lst;
@@ -217,7 +276,6 @@ int	main(int ac, char **av)
 		ft_putendl_fd("error : can't open file", 2);
 		exit(1);
 	}
-	// lst = malloc(sizeof(t_list));
 	init_game(&lst);
 	parsing(&lst);
 	lst.mlx = mlx_init();
@@ -226,49 +284,8 @@ int	main(int ac, char **av)
 		ft_putendl_fd("error : mlx_init", 2);
 		exit(1);
 	}
-	lst.window = mlx_new_window(lst.mlx, lst.longueur_map * 32, lst.largeur_map * 32, "so_long");
-	assign_map(&lst);
-	find_position(&lst);
-	create_map(&lst);
-	// mlx_key_hook(lst.window, create_map, &lst);
-	mlx_hook(lst.window, KeyPress, KeyPressMask, key_press, &lst);
-	mlx_hook(lst.window, EXIT_CODE, 0, free_exit_game, &lst);
+	load_presentation_images(&lst);
+	launch_presentation(&lst);
 	mlx_loop(lst.mlx);
 	return (0);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	t_list	*lst;
-	
-// 	if (ac != 2)
-// 	{
-// 		ft_putendl_fd("error : arguments", 2);
-// 		exit(1);
-// 	}
-// 	lst->path = av[1];
-// 	lst->fd = open(lst->path, O_RDONLY);
-// 	if (lst->fd < 0)
-// 	{
-// 		ft_putendl_fd("error : can't open file", 2);
-// 		exit(1);
-// 	}
-// 	lst = malloc(sizeof(t_list));
-// 	init_game(lst);
-// 	parsing(lst);
-// 	lst->mlx = mlx_init();
-// 	if (!lst->mlx)
-// 	{
-// 		ft_putendl_fd("error : mlx_init", 2);
-// 		exit(1);
-// 	}
-// 	lst->window = mlx_new_window(lst->mlx, lst->largeur_map * 32, lst->longueur_map * 32, "so_long");
-// 	assign_map(lst);
-// 	create_map(lst);
-// 	mlx_key_hook(lst->window, key_press, lst);
-// 	mlx_hook(lst->window, EXIT_CODE, 0, free_exit_game, lst);
-// 	mlx_loop(lst->mlx);
-// 	return (0);
-// }
-// lst.format_longueur ==== 32 (taille rendu)
-// lst.format_largeur ==== 32 (taille rendu)
