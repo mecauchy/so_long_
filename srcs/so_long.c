@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:10:43 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/09 12:59:17 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:13:19 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	key_press(int key, t_list *lst)
 		move_left(lst);
 	if (key == RIGHT || key == D)
 		move_right(lst);
+	printf("---------nb collectibles == %d\n", lst->map_info.nb_collectible);
 	return (0);
 }
 
@@ -130,8 +131,8 @@ void	exit_game(t_list *lst, int value)
 {
 	if (value)
 		ft_printf("you won the game after %d moves, congratulations!", lst->move);
-	else
-		ft_printf("Sortie du jeu ...");
+	// else
+	// 	ft_printf("Sortie du jeu ...");
 	if (lst->img_exit)
 		mlx_destroy_image(lst->mlx, lst->img_exit);
 	if (lst->img_floor)
@@ -142,7 +143,7 @@ void	exit_game(t_list *lst, int value)
 		mlx_destroy_image(lst->mlx, lst->img_wall);
 	if (lst->window)
 		mlx_destroy_window(lst->mlx, lst->window);
-	mlx_destroy_display(lst->mlx);
+	// mlx_destroy_display(lst->mlx);
 	free(lst->mlx);
 	exit(0);
 }
@@ -168,7 +169,7 @@ int	free_exit_game(t_list *lst)
 		mlx_destroy_image(lst->mlx, lst->player.player_left);
 	if (lst->player.player_right)
 		mlx_destroy_image(lst->mlx, lst->player.player_right);
-	mlx_destroy_display(lst->mlx);
+	// mlx_destroy_display(lst->mlx);
 	free(lst->mlx);
 	exit(0);
 	return (0);

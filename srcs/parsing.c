@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:48:45 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/08 21:11:15 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:06:40 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	check_corner(t_list *lst)
 
 void	fill_mapinfo(t_list *lst)
 {
-	unsigned int	x;
-	unsigned int	y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -130,10 +130,8 @@ int	size_map(t_list *lst)
 	char	*line;
 	int		count;
 	int		len;
-	int		i;
 	
 	count = 0;
-	i = 1;
 	lst->fd = open(lst->path, O_RDONLY);
 	if (lst->fd < 0)
 	{

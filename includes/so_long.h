@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:39:17 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/08 21:40:32 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:12:57 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef	struct s_list
 	void	*img_perso;
 	void	*img_floor;
 	char	*path;
-	int		nb_collectibles;
+	// int		nb_collectibles;
 	int		img_longueur;
 	int		img_largeur;
 	int		longueur_map;

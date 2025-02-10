@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:52:47 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/02/08 21:09:15 by mecauchy         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:13:36 by mcauchy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	move_up(t_list *lst)
 		if (lst->map[lst->y - 1][lst->x] == 'C')
 		{
 			lst->map[lst->y - 1][lst->x] = 'P';
-			lst->nb_collectibles--;
+			lst->map_info.nb_collectible--;
 		}
 		if (lst->map[lst->y - 1][lst->x] == 'E')
 		{
-			if (lst->nb_collectibles == 0)
+			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
 		if (lst->map[lst->y - 1][lst->x] == '0')
@@ -43,11 +43,11 @@ void	move_down(t_list *lst)
 		if (lst->map[lst->y + 1][lst->x] == 'C')
 		{
 			lst->map[lst->y + 1][lst->x] = 'P';
-			lst->nb_collectibles--;
+			lst->map_info.nb_collectible--;
 		}
 		if (lst->map[lst->y + 1][lst->x] == 'E')
 		{
-			if (lst->nb_collectibles == 0)
+			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
 		if (lst->map[lst->y + 1][lst->x] == '0')
@@ -67,11 +67,11 @@ void	move_left(t_list *lst)
 		if (lst->map[lst->y][lst->x - 1] == 'C')
 		{
 			lst->map[lst->y][lst->x - 1] = 'P';
-			lst->nb_collectibles--;
+			lst->map_info.nb_collectible--;
 		}
 		if (lst->map[lst->y][lst->x - 1] == 'E')
 		{
-			if (lst->nb_collectibles == 0)
+			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
 		if (lst->map[lst->y][lst->x - 1] == '0')
@@ -90,11 +90,11 @@ void	move_right(t_list *lst)
 		if (lst->map[lst->y][lst->x + 1] == 'C')
 		{
 			lst->map[lst->y][lst->x + 1] = 'P';
-			lst->nb_collectibles--;
+			lst->map_info.nb_collectible--;
 		}
 		if (lst->map[lst->y][lst->x + 1] == 'E')
 		{
-			if (lst->nb_collectibles == 0)
+			if (lst->map_info.nb_collectible == 0)
 				exit_game(lst, 1);
 		}
 		if (lst->map[lst->y][lst->x + 1] == '0')

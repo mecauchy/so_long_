@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mecauchy <mecauchy@student.42.fr>          +#+  +:+       +#+         #
+#    By: mcauchy- <mcauchy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/05 14:00:29 by mcauchy-          #+#    #+#              #
-#    Updated: 2025/02/09 16:21:56 by mecauchy         ###   ########.fr        #
+#    Updated: 2025/02/10 11:05:54 by mcauchy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
- SRC_FILES		=	main.c move.c parsing.c utils.c
+ SRC_FILES		=	./srcs/so_long.c ./srcs/move.c ./srcs/parsing.c ./srcs/utils.c
  
  LIBFT			=	libft/libft.a
  
@@ -24,7 +24,7 @@ OBJ_FILES		=	$(SRC_FILES:.c=.o)
 
 CC				=	gcc -g3
 
-CFLAGS0			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 
 NAME			=	so_long
 
